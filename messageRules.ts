@@ -13,6 +13,8 @@ function parseItogoKk(text: string): number | null {
   return Number.isNaN(num) ? null : num;
 }
 
+
+
 export const rules: Rule[] = [
   {
     test: (text) => {

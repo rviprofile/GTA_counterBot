@@ -4,6 +4,7 @@ import type { Config } from "@netlify/functions";
 import { loadState, saveState } from "../../storage";
 import { getDaysLeftText } from "../../daysLeft";
 import { checkRules } from "../../messageRules";
+import { checkHui } from "../../checkHui";
 
 const apiKey = process.env.BOT_API_KEY;
 if (!apiKey) throw new Error("BOT_API_KEY не указан");
@@ -38,9 +39,18 @@ bot.on("message:text", async (ctx) => {
   const botUsername = ctx.me.username;
   const mentioned = ctx
     .entities("mention")
-    .some((entity) => entity.text.toLowerCase() === `@${botUsername.toLowerCase()}`);
+    .some(
+      (entity) => entity.text.toLowerCase() === `@${botUsername.toLowerCase()}`,
+    );
 
   if (mentioned) {
+    if (checkHui(text)) {
+      await ctx.replyWithAnimation(
+        "https://grandcountdown.netlify.app/tiha.mp4",
+      );
+      return;
+    }
+
     const state = await loadState();
     const reply = getDaysLeftText(state.eventDate);
     await ctx.reply(reply, { parse_mode: "HTML" });
