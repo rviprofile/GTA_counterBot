@@ -32,8 +32,9 @@ bot.on("my_chat_member", async (ctx) => {
   }
 });
 
-bot.on("message:text", async (ctx) => {
-  const text = ctx.message.text;
+bot.on(["message:text", "message:caption"], async (ctx) => {
+  const text = ctx.message.text ?? ctx.message.caption ?? "";
+  if (!text) return;
 
   // 1. Проверка упоминания бота
   const botUsername = ctx.me.username;

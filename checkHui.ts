@@ -9,6 +9,8 @@ const blockarr = [
   "еблан",
   "ебало",
   "завали",
+  "блять",
+  "бля",
 ];
 
 export function checkHui(text: string): boolean {
