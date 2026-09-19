@@ -24,7 +24,7 @@ export const rules: Rule[] = [
         return `Кто-то сегодня вкусно покушал 😏`;
       }
       if (kk !== null && kk < 1500) {
-        return `Уж мог бы и не есть вообще 😄`;
+        return `Мне кажется, даже я больше ем 😄`;
       }
       return null;
     },
