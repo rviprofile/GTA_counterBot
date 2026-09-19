@@ -12,7 +12,7 @@ const KEY = "state";
 export async function loadState(): Promise<State> {
   const store = getStore(STORE_NAME);
   const data = await store.get(KEY, { type: "json" });
-  return (data as State) ?? { chatId: null, eventDate: "2026-12-31" };
+  return (data as State) ?? { chatId: null, eventDate: "2026-11-19" };
 }
 
 export async function saveState(state: State): Promise<void> {
