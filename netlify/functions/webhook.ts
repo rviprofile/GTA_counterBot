@@ -32,6 +32,7 @@ bot.on("my_chat_member", async (ctx) => {
 
 // Ответ на упоминание бота в группе
 bot.on("message:text", async (ctx) => {
+  const text = ctx.message.text;
   const botUsername = ctx.me.username;
   const mentioned = ctx
     .entities("mention")
@@ -39,12 +40,24 @@ bot.on("message:text", async (ctx) => {
       (entity) => entity.text.toLowerCase() === `@${botUsername.toLowerCase()}`,
     );
 
-  if (!mentioned) return;
+  const kk = Number(
+    text.slice(text.indexOf("Итого:"), text.indexOf("кк")).trim(),
+  );
 
-  const state = await loadState();
-  const text = getDaysLeftText(state.eventDate);
+  if (mentioned && !kk) {
+    const state = await loadState();
+    const reply = getDaysLeftText(state.eventDate);
 
-  await ctx.reply(text, { parse_mode: "HTML" }); // <-- вот это
+    await ctx.reply(reply, { parse_mode: "HTML" });
+  }
+
+  if (text.includes("Итого:")) {
+    if (kk && kk > 2500) {
+      const reply = `${kk}? Кто-то сегодня вкусно покушал 😏`;
+
+      await ctx.reply(reply, { parse_mode: "HTML" });
+    }
+  }
 });
 
 export default webhookCallback(bot, "std/http");
