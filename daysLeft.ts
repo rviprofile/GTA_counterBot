@@ -55,7 +55,7 @@ function getVibe(daysLeft: number): {
   return {
     emoji: "🕰",
     title: "Отсчёт продолжается",
-    subtitle: "Пока просто держимся",
+    subtitle: getRandomPhrase(waitingPhrases),
   };
 }
 
@@ -67,3 +67,20 @@ function pluralizeRu(count: number, one: string, few: string, many: string) {
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return few;
   return many;
 }
+function getRandomPhrase(phrases: string[]): string {
+  const index = Math.floor(Math.random() * phrases.length);
+  return phrases[index];
+}
+
+const waitingPhrases: string[] = [
+  `Пока просто держимся`,
+  `В целом осталось не много`,
+  `Главное не сдаваться`,
+  `Ещё чуть-чуть и всё получится. Ну как чуть-чуть...`,
+  `Продолжаем в том же духе`,
+  `Совсем скоро финиш`,
+  `Держим курс дальше`,
+  `Терпение — и всё будет`,
+  `Потихоньку двигаемся к цели`,
+  `...`,
+];
