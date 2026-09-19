@@ -17,13 +17,11 @@ export function getDaysLeftText(eventDate: string): string {
 
 function buildCountdownMessage(daysLeft: number): string {
   const word = pluralizeRu(daysLeft, "день", "дня", "дней");
-  const bar = buildProgressBar(daysLeft);
   const vibe = getVibe(daysLeft);
 
   return (
     `${vibe.emoji} <b>${vibe.title}</b>\n\n` +
     `⏳ Осталось: <b>${daysLeft} ${word}</b>\n` +
-    `${bar}\n\n` +
     `<i>${vibe.subtitle}</i>`
   );
 }
@@ -59,18 +57,6 @@ function getVibe(daysLeft: number): {
     title: "Отсчёт продолжается",
     subtitle: "Ещё есть время всё спланировать",
   };
-}
-
-// Прогресс-бар "выгорает" по мере приближения к дате.
-// Считаем от условного месяца (30 дней) как базовой шкалы.
-function buildProgressBar(daysLeft: number): string {
-  const maxScale = 30;
-  const totalBlocks = 10;
-  const clamped = Math.min(daysLeft, maxScale);
-  const filled = Math.round(((maxScale - clamped) / maxScale) * totalBlocks);
-  const empty = totalBlocks - filled;
-
-  return "▓".repeat(filled) + "░".repeat(empty);
 }
 
 function pluralizeRu(count: number, one: string, few: string, many: string) {

@@ -14,7 +14,7 @@ export default async () => {
   if (!state.chatId) return new Response("Нет активного чата", { status: 200 });
 
   const text = getDaysLeftText(state.eventDate);
-  await bot.api.sendMessage(state.chatId, text);
+  await bot.api.sendMessage(state.chatId, text, { parse_mode: "HTML" });
 
   return new Response("OK", { status: 200 });
 };

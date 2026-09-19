@@ -32,7 +32,7 @@ bot.on("my_chat_member", async (ctx) => {
 
 // Ответ на упоминание бота в группе
 bot.on("message:text", async (ctx) => {
-  const botUsername = ctx.me.username; // grammy автоматически подставляет через getMe()
+  const botUsername = ctx.me.username;
   const mentioned = ctx
     .entities("mention")
     .some(
@@ -43,7 +43,8 @@ bot.on("message:text", async (ctx) => {
 
   const state = await loadState();
   const text = getDaysLeftText(state.eventDate);
-  await ctx.reply(text);
+
+  await ctx.reply(text, { parse_mode: "HTML" }); // <-- вот это
 });
 
 export default webhookCallback(bot, "std/http");
