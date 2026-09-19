@@ -3,6 +3,7 @@ import { Bot, webhookCallback } from "grammy";
 import type { Config } from "@netlify/functions";
 import { loadState, saveState } from "../../storage";
 import { getDaysLeftText } from "../../daysLeft";
+import { checkRules } from "../../messageRules";
 
 const apiKey = process.env.BOT_API_KEY;
 if (!apiKey) throw new Error("BOT_API_KEY не указан");
@@ -30,33 +31,26 @@ bot.on("my_chat_member", async (ctx) => {
   }
 });
 
-// Ответ на упоминание бота в группе
 bot.on("message:text", async (ctx) => {
   const text = ctx.message.text;
+
+  // 1. Проверка упоминания бота
   const botUsername = ctx.me.username;
   const mentioned = ctx
     .entities("mention")
-    .some(
-      (entity) => entity.text.toLowerCase() === `@${botUsername.toLowerCase()}`,
-    );
+    .some((entity) => entity.text.toLowerCase() === `@${botUsername.toLowerCase()}`);
 
-  const kk = Number(
-    text.slice(text.indexOf("Итого:"), text.indexOf("кк")).trim(),
-  );
-
-  if (mentioned && !kk) {
+  if (mentioned) {
     const state = await loadState();
     const reply = getDaysLeftText(state.eventDate);
-
     await ctx.reply(reply, { parse_mode: "HTML" });
+    return; // если это было упоминание, дальше правила не проверяем
   }
 
-  if (text.includes("Итого:")) {
-    if (kk && kk > 2500) {
-      const reply = `${kk}? Кто-то сегодня вкусно покушал 😏`;
-
-      await ctx.reply(reply, { parse_mode: "HTML" });
-    }
+  // 2. Проверка остальных правил (например, "Итого: N кк")
+  const ruleReply = checkRules(text);
+  if (ruleReply) {
+    await ctx.reply(ruleReply, { parse_mode: "HTML" });
   }
 });
 
