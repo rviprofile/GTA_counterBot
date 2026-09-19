@@ -18,10 +18,13 @@ export const rules: Rule[] = [
     test: (text) => {
       const kk = parseItogoKk(text);
       if (kk !== null && kk > 2500) {
-        return `${kk}? Кто-то сегодня вкусно покушал 😏`;
+        return `Вот это мужские порции 🫨`;
       }
-      if (kk !== null && kk < 2000) {
-        return `А материться можно? Хули так мало? ${kk}, уж мог бы и не есть вообще`;
+      if (kk !== null && kk > 2500) {
+        return `Кто-то сегодня вкусно покушал 😏`;
+      }
+      if (kk !== null && kk < 1800) {
+        return `Уж мог бы и не есть вообще 😄`;
       }
       return null;
     },
