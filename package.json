@@ -13,15 +13,16 @@
   "dependencies": {
     "@fastify/cors": "^11.0.1",
     "@fastify/static": "^8.2.0",
+    "@netlify/blobs": "^11.1.0",
     "big-integer": "^1.6.52",
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
-    "date-fns": "^4.1.0",
+    "date-fns": "^4.4.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "fastify": "^4.29.1",
     "fs": "^0.0.1-security",
-    "grammy": "^1.11.2",
+    "grammy": "^1.46.0",
     "http": "^0.0.1-security",
     "input": "^1.0.1",
     "mime-types": "^3.0.1",
@@ -30,6 +31,7 @@
     "telegram": "^2.26.22"
   },
   "devDependencies": {
+    "@netlify/functions": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mime-types": "^3.0.1",
