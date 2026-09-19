@@ -21,7 +21,7 @@ function buildCountdownMessage(daysLeft: number): string {
 
   return (
     `${vibe.emoji} <b>${vibe.title}</b>\n\n` +
-    `⏳ Осталось: <b>${daysLeft} ${word}</b>\n` +
+    `⏳ Осталось: <b>${daysLeft} ${word}</b>\n\n` +
     `<i>${vibe.subtitle}</i>`
   );
 }
@@ -55,7 +55,7 @@ function getVibe(daysLeft: number): {
   return {
     emoji: "🕰",
     title: "Отсчёт продолжается",
-    subtitle: "Ещё есть время всё спланировать",
+    subtitle: "Пока просто держимся",
   };
 }
 
